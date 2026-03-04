@@ -7,9 +7,10 @@ import os
 from pathlib import Path
 
 # Paths
-TRAIN_DIR = r'D:\Data\Speech and Language Processing Project\Train-20260214T175134Z-1-001\Train\Train_images'
-TRAIN_LABELS = r'D:\Data\Speech and Language Processing Project\Train-20260214T175134Z-1-001\Train\Train_labels.xlsx'
-OUTPUT_DIR = r'D:\Data\Speech and Language Processing Project\Malayalam_EDA'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TRAIN_DIR = os.path.join(BASE_DIR, 'Dataset', 'Train-20260214T175134Z-1-001', 'Train', 'Train_images')
+TRAIN_LABELS = os.path.join(BASE_DIR, 'Dataset', 'Train-20260214T175134Z-1-001', 'Train', 'Train_labels.xlsx')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'Malayalam_EDA')
 
 # Create output directory
 os.makedirs(OUTPUT_DIR, exist_ok=True)
