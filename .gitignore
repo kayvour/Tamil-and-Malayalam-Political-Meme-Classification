@@ -1,0 +1,32 @@
+# Model files (too large for GitHub)
+*.pth
+*.pt
+*.ckpt
+*.bin
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data
+*.csv
+*.xlsx
+*.xls
+Dataset/
+Datasets/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
