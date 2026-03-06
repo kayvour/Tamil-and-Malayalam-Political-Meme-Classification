@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Meme Classification System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">PewPew</span>
+                    <h1 class="logo-text">Political Meme Classifier</h1>
+                </div>
+                <div class="status-badge" id="statusBadge">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Model Selector Section -->
+            <section class="model-section">
+                <div class="model-card">
+                    <div class="model-card-header">
+                        <h3>⚙️ Select Model</h3>
+                    </div>
+                    <div class="model-options" id="modelOptions">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                        <div class="upload-icon">MemePlease</div>
+                        <h2 class="upload-title">Upload Meme Image</h2>
+                        <p class="upload-subtitle">Click to browse or drag and drop</p>
+                        <p class="upload-info">Supports: JPG, PNG, GIF, BMP</p>
+                        <button class="btn btn-primary" id="browseBtn">
+                            <span>Browse Files</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Preview & Results -->
+            <div class="content-grid" id="contentGrid" style="display: none;">
+                <!-- Image Preview -->
+                <section class="preview-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Image Preview</h3>
+                            <button class="btn-icon" id="clearBtn" title="Clear">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M6 6L14 14M6 14L14 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="image-preview">
+                            <img id="previewImage" src="" alt="Preview">
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success btn-block" id="classifyBtn">
+                                <span class="btn-icon-left">🔍</span>
+                                <span>Classify Image</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Results Section -->
+                <section class="results-section">
+                    <!-- Loading State -->
+                    <div class="loading-card" id="loadingCard">
+                        <div class="loader"></div>
+                        <p class="loading-text">Analyzing image...</p>
+                    </div>
+
+                    <!-- Results Cards -->
+                    <div id="resultsContainer" style="display: none;">
+                        <!-- Model Used Banner -->
+                        <div class="card model-used-card">
+                            <div class="card-body" style="padding: 12px 24px;">
+                                <span class="model-used-label">Model used:</span>
+                                <span class="model-used-name" id="modelUsedName">—</span>
+                            </div>
+                        </div>
+
+                        <!-- Level 1 Result -->
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Level 1 Classification</h3>
+                                <span class="badge badge-blue">Binary</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="result-label" id="level1Label">—</div>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" id="level1Bar" style="width: 0%"></div>
+                                </div>
+                                <div class="confidence-text">
+                                    <span>Confidence:</span>
+                                    <span id="level1Confidence">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Level 2 Result -->
+                        <div class="card result-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Level 2 Classification</h3>
+                                <span class="badge badge-green">Multi-class</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="result-label" id="level2Label">—</div>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" id="level2Bar" style="width: 0%"></div>
+                                </div>
+                                <div class="confidence-text">
+                                    <span>Confidence:</span>
+                                    <span id="level2Confidence">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- OCR Text -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Extracted Text (OCR)</h3>
+                                <span class="badge badge-purple">Malayalam + English</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="ocr-text" id="ocrText">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Political Meme Classification System. Built with CLIP + PyTorch.</p>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
