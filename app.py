@@ -3,7 +3,6 @@ from flask_cors import CORS
 from PIL import Image
 import torch
 from transformers import CLIPProcessor, CLIPModel, ViTForImageClassification, ViTImageProcessor
-import pytesseract
 import io
 import os
 
@@ -136,7 +135,11 @@ if weight_status['trained_vit']:
         trained_vit_model_l2 = ViTForImageClassification.from_pretrained(
             "google/vit-base-patch16-224", num_labels=len(LEVEL2_LABELS), ignore_mismatched_sizes=True
         ).to(MODEL_DEVICE)
-        trained_vit_model_l2.load_state_dict(torch.load(TRAINED_VIT_L2_PATH, map_location=MODEL_DEVICE, weights_only=True))
+        checkpoint_l2 = torch.load(TRAINED_VIT_L2_PATH, map_location=MODEL_DEVICE, weights_only=True)
+        if isinstance(checkpoint_l2, dict) and 'model_state_dict' in checkpoint_l2:
+            trained_vit_model_l2.load_state_dict(checkpoint_l2['model_state_dict'])
+        else:
+            trained_vit_model_l2.load_state_dict(checkpoint_l2)
         trained_vit_model_l2.eval()
 
         MODELS['trained_vit'] = {
@@ -163,19 +166,16 @@ else:
     }
     print("Trained ViT weights not found — placeholder registered.")
 
-print(f"\nModel registry: {', '.join(f'{k} ({v['status']})' for k, v in MODELS.items())}")
+model_summary = ', '.join(f"{k} ({v['status']})" for k, v in MODELS.items())
+print(f"\nModel registry: {model_summary}")
 
 # ============================================================================
 # HELPER FUNCTIONS
 # ============================================================================
 
 def extract_text_from_image(image):
-    """Extract text from image using pytesseract"""
-    try:
-        text = pytesseract.image_to_string(image, lang='mal+eng')
-        return text.strip() if text else "No text detected"
-    except Exception as e:
-        return f"OCR Error: {str(e)}"
+    """Extract text from image"""
+    return "OCR disabled"
 
 
 def classify_zero_shot_clip(image):
