@@ -1,4 +1,4 @@
-# 🧠 Multimodal Tamil and Malayalam Political Meme Classification using CLIP
+# 🧠 Multimodal Tamil and Malayalam Political Meme Classification using CLIP and VILT
 
 A deep learning project for classifying political memes using **image + OCR text fusion** with OpenAI CLIP embeddings and a custom neural network classifier.
 
@@ -198,6 +198,26 @@ sudo apt-get install tesseract-ocr
 
 - Fine-tune CLIP end-to-end
 - Use multilingual CLIP variants
+
+---
+
+## �️ Running the Frontend (Web App)
+
+```bash
+pip install -r web_requirements.txt
+python app.py
+```
+
+Open **http://localhost:5000** in your browser. Upload a meme image, pick a model, and hit **Classify**.
+
+> Zero-Shot CLIP works immediately with no training needed.  
+> For trained models, place the `.pth` weight files in the `trained_weights/` folder and restart.
+
+---
+
+## �📖 Full Documentation
+
+For complete documentation including installation, dataset setup, training steps, inference, web app usage, API reference, architecture details, and troubleshooting, see **[DOCUMENTATION.md](DOCUMENTATION.md)**.
 - Replace concatenation with attention-based fusion
 - Experiment with focal loss
 - Apply stronger vision backbone (ViT-L/14)
