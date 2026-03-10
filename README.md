@@ -1,4 +1,4 @@
-# 🧠 Multimodal Tamil and Malayalam Political Meme Classification using CLIP
+# 🧠 Multimodal Tamil and Malayalam Political Meme Classification using CLIP and VILT
 
 A deep learning project for classifying political memes using **image + OCR text fusion** with OpenAI CLIP embeddings and a custom neural network classifier.
 
